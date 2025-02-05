@@ -18,10 +18,12 @@ class PdfController extends Controller
                 ->showBackground()
                 ->noSandbox()
                 ->format('A4')
+            	->setNodeBinary('/home/thomasadam83/.nvm/versions/node/v22.13.1/bin/node')
+    			->setNpmBinary('/home/thomasadam83/.nvm/versions/node/v22.13.1/bin/npm')
                 ->pdf();
         } catch (\Exception $e) {
-            Log::error('Browsershot error: ' . $e->getMessage());
-            Log::error($e->getTraceAsString()); // Full stack trace
+            // Log::error('Browsershot error: ' . $e->getMessage());
+            // Log::error($e->getTraceAsString()); // Full stack trace
             throw $e; // Re-throw to see the error in the browser
         }
 
