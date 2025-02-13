@@ -25,6 +25,10 @@ This tool uses a basic Laravel app with Browsershot and Puppeteer to generate PD
     sudo service apache2 restart
     ```
 
+    At this point you can enter your IP address (use http://) into a browser and you should see the default Apache page:
+
+    ![Apache Default Page](_readme/screenshot-apache.png)
+
 6. 
 
 ---
