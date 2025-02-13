@@ -116,7 +116,7 @@ This tool uses a basic Laravel app with Browsershot and Puppeteer to generate PD
     sudo apt install webmin
     ```
     
-    Open up p[ort 10000:
+    Open up port 10000:
 
     ```
     sudo ufw allow 10000
@@ -130,7 +130,141 @@ This tool uses a basic Laravel app with Browsershot and Puppeteer to generate PD
     sudo reboot
     ```
     
-12. 
+12. Install an SSL using [LedtsEncrypt](https://letsencrypt.org/):
+
+```
+sudo apt install certbot python3-certbot-apache  
+sudo certbot
+```
+
+Port 80:
+
+```
+<Directory "/var/www/academicintegrity.codeadam.ca">
+    allow from all
+    Require all granted
+    AllowOverride All
+</Directory>
+RewriteEngine on
+RewriteCond %{SERVER_NAME} =academicintegrity.codeadam.ca
+RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
+```
+
+Port 443:
+
+```
+<Directory /var/www/pdfer.codeadam.ca/public>
+    AllowOverride All
+    Options None
+    Require all granted
+</Directory>
+SSLCertificateFile /etc/letsencrypt/live/pdfer.codeadam.ca/fullchain.pem
+SSLCertificateKeyFile /etc/letsencrypt/live/pdfer.codeadam.ca/privkey.pem
+Include /etc/letsencrypt/options-ssl-apache.conf
+```
+
+13. Clone the PDFer repo:
+
+```
+sudo git clone https://github.com/codeadamca/pdfer
+```
+
+Change ownership to Google user: thomasadam83
+
+Rename folder to pffer.codeadam.ca
+Point virtual servers to public folder
+
+14. Error reporting:
+
+```
+/etc/php/8.3/apache2/php.ini
+Line 518: display_errors = On
+```
+
+Restart Apache
+
+15. Install Composer php libraries:
+
+```
+composer install
+```
+
+16. Add a `.env` file for the application and make the following changes:
+
+```
+DB_CONNECTION=null
+SESSION_DRIVER=file
+```
+
+Generate an application key:
+
+```
+php artisan key:generate
+```
+
+17. 
+
+https://www.geeksforgeeks.org/how-to-install-nvm-on-ubuntu-22-04/
+
+sudo apt-get update
+
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+
+Terminal must are restarted
+
+nvm --version
+
+```
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+```
+
+nvm install --lts
+
+
+cd /var/www/pdfer.codeadam.ca
+npm i
+
+18) Permissions:
+
+Add www-data to thomasadam83 group
+Change ownership of storage folder to www-data recursively
+
+19) Add npm and node to paths
+
+n=$(which node);n=${n%/bin/node}; chmod -R 755 $n/bin/*; sudo cp -r $n/{bin,lib,share} /usr/local
+
+sudo reboot
+
+20) Install Puppeteer and dependencies:
+
+sudo apt install ca-certificates fonts-liberation libasound2 libatk-bridge2.0-0 libatk1.0-0 libc6 libcairo2 libcups2 libdbus-1-3 libexpat1 libfontconfig1 libgbm1 libgcc1 libglib2.0-0 libgtk-3-0 libnspr4 libnss3 libpango-1.0-0 libpangocairo-1.0-0 libstdc++6 libx11-6 libx11-xcb1 libxcb1 libxcomposite1 libxcursor1 libxdamage1 libxext6 libxfixes3 libxi6 libxrandr2 libxrender1 libxss1 libxtst6 lsb-release wget xdg-utils
+
+sudo npm install --location=global --unsafe-perm puppeteer --ignore-scripts
+
+// npx puppeteer browsers install chrome
+// sudo apt-get -y chromium-browser
+
+cd /var/www/pdfer.codeadam.ca 
+npx puppeteer browsers install
+
+20) Change caching folder
+
+touch .puppeteerrc.cjs
+nano .puppeteerrc.cjs
+
+```
+const {join} = require('path');
+
+/**
+ * @type {import("puppeteer").Configuration}
+ */
+module.exports = {
+    // Changes the cache location for Puppeteer.
+    cacheDirectory: join(__dirname, '.cache', 'puppeteer'),
+};
+```
 
 ---
 
