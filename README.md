@@ -85,7 +85,7 @@ This tool uses a basic Laravel app with Browsershot and Puppeteer to generate PD
     sudo apt upgrade
     ```
 
-    ANd reboot:
+    And reboot:
 
     ```
     sudo reboot
