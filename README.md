@@ -75,9 +75,15 @@ This tool uses a basic Laravel app with Browsershot and Puppeteer to generate PD
 
     ```
     git --version
-    
+    ```
 
 10.  Change the server password:
+
+    ```
+    sudo passwd
+    sudo apt update
+    sudo apt upgrade
+    ```
     
     And reboot:
 
