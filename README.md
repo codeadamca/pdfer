@@ -29,6 +29,16 @@ This tool uses a basic Laravel app with Browsershot and Puppeteer to generate PD
 
     ![Apache Default Page](_readme/screenshot-apache.png)
 
+5. Using a terminal (Mac) create an SSH key:
+
+    ```
+    ssh-keygen -t rsa -b 4096 -C username
+    ```
+
+    Add the public key to the Google Cloud Platform Metadata.
+
+    Setup a new FileZilla SFTP connection. Add the IP address, username, and privat key file. Add the new user from the new SSH key to the `www-data` user group. Change any contents of the `/var/www/ folder to have user write permissions using `0775`.
+
 6. Install and configure MySQL:
 
     ```
@@ -79,11 +89,11 @@ This tool uses a basic Laravel app with Browsershot and Puppeteer to generate PD
 
 10. Change the server password:  
     
-```
-sudo passwd
-sudo apt update
-sudo apt upgrade
-```
+    ```
+    sudo passwd
+    sudo apt update
+    sudo apt upgrade
+    ```
     
     And reboot:
 
@@ -91,7 +101,7 @@ sudo apt upgrade
     sudo reboot
     ```
 
-11.  Install [Webmin](https://webmin.com/):
+11. Install [Webmin](https://webmin.com/):
 
     ```
     curl -fsSL https://download.webmin.com/jcameron-key.asc | sudo gpg --dearmor -o /usr/share/keyrings/webmin.gpg
@@ -137,96 +147,97 @@ sudo apt upgrade
     sudo certbot
     ```
 
-Port 80:
+13. Ad a virtual host using Webmin:
 
-```
-<Directory "/var/www/academicintegrity.codeadam.ca">
-    allow from all
-    Require all granted
-    AllowOverride All
-</Directory>
-RewriteEngine on
-RewriteCond %{SERVER_NAME} =academicintegrity.codeadam.ca
-RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
-```
-
-Port 443:
-
-```
-<Directory /var/www/pdfer.codeadam.ca/public>
-    AllowOverride All
-    Options None
-    Require all granted
-</Directory>
-SSLCertificateFile /etc/letsencrypt/live/pdfer.codeadam.ca/fullchain.pem
-SSLCertificateKeyFile /etc/letsencrypt/live/pdfer.codeadam.ca/privkey.pem
-Include /etc/letsencrypt/options-ssl-apache.conf
-```
+    Port 80:
+    
+    ```
+    <Directory "/var/www/academicintegrity.codeadam.ca">
+        allow from all
+        Require all granted
+        AllowOverride All
+    </Directory>
+    RewriteEngine on
+    RewriteCond %{SERVER_NAME} =academicintegrity.codeadam.ca
+    RewriteRule ^ https://%{SERVER_NAME}%{REQUEST_URI} [END,NE,R=permanent]
+    ```
+    
+    Port 443:
+    
+    ```
+    <Directory /var/www/pdfer.codeadam.ca/public>
+        AllowOverride All
+        Options None
+        Require all granted
+    </Directory>
+    SSLCertificateFile /etc/letsencrypt/live/pdfer.codeadam.ca/fullchain.pem
+    SSLCertificateKeyFile /etc/letsencrypt/live/pdfer.codeadam.ca/privkey.pem
+    Include /etc/letsencrypt/options-ssl-apache.conf
+    ```
 
 13. Clone the PDFer repo:
 
-```
-sudo git clone https://github.com/codeadamca/pdfer
-```
+    ```
+    sudo git clone https://github.com/codeadamca/pdfer
+    ```
 
-Change ownership to Google user: thomasadam83
-
-Rename folder to pffer.codeadam.ca
-Point virtual servers to public folder
+    Change ownership to Google user: thomasadam83
+    
+    Rename folder to pffer.codeadam.ca
+    Point virtual servers to public folder
 
 14. Error reporting:
 
-```
-/etc/php/8.3/apache2/php.ini
-Line 518: display_errors = On
-```
+    ```
+    /etc/php/8.3/apache2/php.ini
+    Line 518: display_errors = On
+    ```
 
-Restart Apache
+    Restart Apache using `sudo service apache2 restart`.
 
 15. Install Composer php libraries:
 
-```
-composer install
-```
+    ```
+    composer install
+    ```
 
 16. Add a `.env` file for the application and make the following changes:
 
-```
-DB_CONNECTION=null
-SESSION_DRIVER=file
-```
+    ```
+    DB_CONNECTION=null
+    SESSION_DRIVER=file
+    ```
+    
+    Generate an application key:
+    
+    ```
+    php artisan key:generate
+    ```
 
-Generate an application key:
+17. Istall NVM:
 
-```
-php artisan key:generate
-```
+    https://www.geeksforgeeks.org/how-to-install-nvm-on-ubuntu-22-04/
+    
+    sudo apt-get update
+    
+    curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
+    
+    Terminal must are restarted
+    
+    nvm --version
+    
+    ```
+    export NVM_DIR="$HOME/.nvm"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+    ```
 
-17. 
+    nvm install --lts
 
-https://www.geeksforgeeks.org/how-to-install-nvm-on-ubuntu-22-04/
+    cd /var/www/pdfer.codeadam.ca
+    npm i
 
-sudo apt-get update
-
-curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.1/install.sh | bash
-
-Terminal must are restarted
-
-nvm --version
-
-```
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
-```
-
-nvm install --lts
-
-
-cd /var/www/pdfer.codeadam.ca
-npm i
-
-18) Permissions:
+18. Change permissions.
 
 Add www-data to thomasadam83 group
 Change ownership of storage folder to www-data recursively
