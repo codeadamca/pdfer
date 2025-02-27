@@ -51,7 +51,7 @@ This tool uses a basic Laravel app with Browsershot and Puppeteer to generate PD
     sudo apt-get install -y php8.3-mbstring php8.3-curl php8.3-xml php8.3-bcmath
     ```
     
-8.  Install [Composer](https://getcomposer.org/):
+8. Install [Composer](https://getcomposer.org/):
 
     ```
     curl -sS https://getcomposer.org/installer -o /tmp/composer-setup.php
@@ -64,7 +64,7 @@ This tool uses a basic Laravel app with Browsershot and Puppeteer to generate PD
     compoer --version
     ```
     
-9.  Install [GIT](https://git-scm.com/):
+9. Install [GIT](https://git-scm.com/):
 
     ```
     sudo apt install git-all
@@ -77,13 +77,13 @@ This tool uses a basic Laravel app with Browsershot and Puppeteer to generate PD
     git --version
     ```
 
-10.  Change the server password:
-
-    ```
-    sudo passwd
-    sudo apt update
-    sudo apt upgrade
-    ```
+10. Change the server password:  
+    
+```
+sudo passwd
+sudo apt update
+sudo apt upgrade
+```
     
     And reboot:
 
@@ -132,10 +132,10 @@ This tool uses a basic Laravel app with Browsershot and Puppeteer to generate PD
     
 12. Install an SSL using [LedtsEncrypt](https://letsencrypt.org/):
 
-```
-sudo apt install certbot python3-certbot-apache  
-sudo certbot
-```
+    ```
+    sudo apt install certbot python3-certbot-apache  
+    sudo certbot
+    ```
 
 Port 80:
 
@@ -265,6 +265,8 @@ module.exports = {
     cacheDirectory: join(__dirname, '.cache', 'puppeteer'),
 };
 ```
+
+21. 
 
 ---
 
