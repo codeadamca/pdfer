@@ -83,7 +83,7 @@ This tool uses a basic Laravel app with Browsershot and Puppeteer to generate PD
     And confirm Composer is installed:
 
     ```
-    compoer --version
+    composer --version
     ```
     
 9. Install [GIT](https://git-scm.com/):
@@ -151,6 +151,21 @@ This tool uses a basic Laravel app with Browsershot and Puppeteer to generate PD
     ```
     sudo reboot
     ```
+
+13. Clone the PDFer repo:
+
+    ```
+    sudo git clone https://github.com/codeadamca/pdfer
+    ```
+
+    Change ownership to Google user: thomasadam83
+    
+    Rename folder to pffer.codeadam.ca
+    Point virtual servers to public folder
+    
+12. Virtual Servers
+
+    Using Wemin add two new servers for the domin on 80 and 443.
     
 12. Install an SSL using [LedtsEncrypt](https://letsencrypt.org/):
 
@@ -159,6 +174,15 @@ This tool uses a basic Laravel app with Browsershot and Puppeteer to generate PD
     sudo certbot
     ```
 
+14. Error reporting:
+
+    ```
+    /etc/php/8.3/apache2/php.ini
+    Line 518: display_errors = On
+    ```
+
+    Restart Apache using `sudo service apache2 restart`.
+    
 13. Ad a virtual host using Webmin:
 
     Port 80:
@@ -186,26 +210,6 @@ This tool uses a basic Laravel app with Browsershot and Puppeteer to generate PD
     SSLCertificateKeyFile /etc/letsencrypt/live/pdfer.codeadam.ca/privkey.pem
     Include /etc/letsencrypt/options-ssl-apache.conf
     ```
-
-13. Clone the PDFer repo:
-
-    ```
-    sudo git clone https://github.com/codeadamca/pdfer
-    ```
-
-    Change ownership to Google user: thomasadam83
-    
-    Rename folder to pffer.codeadam.ca
-    Point virtual servers to public folder
-
-14. Error reporting:
-
-    ```
-    /etc/php/8.3/apache2/php.ini
-    Line 518: display_errors = On
-    ```
-
-    Restart Apache using `sudo service apache2 restart`.
 
 15. Install Composer php libraries:
 
