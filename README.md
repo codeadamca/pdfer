@@ -23,6 +23,7 @@ This tool uses a basic Laravel app with Browsershot and Puppeteer to generate PD
     sudo apt install apt-utils 
     sudo apt install apache2 apache2-utils
     sudo a2enmod rewrite
+    sudo a2enmod ssl
     sudo service apache2 restart
     ```
 
