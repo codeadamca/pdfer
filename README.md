@@ -43,6 +43,16 @@ This tool uses a basic Laravel app with Browsershot and Puppeteer to generate PD
 
     ```
     sudo apt-get install mysql-server
+    sudo mysql_secure_installation
+    ```
+
+    ```
+    sudo mysql
+    ```
+
+    ```
+    ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY "password";
+    exit
     ```
     
 7. Insall PHP:
