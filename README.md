@@ -158,6 +158,8 @@ This tool uses a basic Laravel app with Browsershot and Puppeteer to generate PD
     sudo git clone https://github.com/codeadamca/pdfer
     ```
 
+    Remove binary references from the PdfController.
+
     Change ownership to Google user: thomasadam83
     
     Rename folder to pffer.codeadam.ca
@@ -278,6 +280,7 @@ sudo npm install --location=global --unsafe-perm puppeteer --ignore-scripts
 
 cd /var/www/pdfer.codeadam.ca 
 npx puppeteer browsers install
+npx puppeteer browsers install chrome
 
 20) Change caching folder
 
