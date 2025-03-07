@@ -248,12 +248,15 @@ This tool uses a basic Laravel app with Browsershot and Puppeteer to generate PD
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
     ```
 
+    ```
     nvm install --lts
 
-    cd /var/www/pdfer.codeadam.ca
+    cd /var/www/pdfer.codeadam.ca  
     npm i
+    npm audit fix
+    ```
 
-18. Change permissions.
+19. Change permissions.
 
 Add www-data to thomasadam83 group
 Change ownership of storage folder to www-data recursively
