@@ -12,6 +12,11 @@ class PdfController extends Controller
     public function urlToPdf(Request $request)
     {
 
+    	if(!strpos($request->url, 'brevisrefero'))
+        {
+    		abort(404, 'YOUR MESSAGE');
+        }
+
         try {
             //$pdf = Browsershot::html('<h1>Hello world!!</h1>')
             $pdf = Browsershot::url($request->url)
