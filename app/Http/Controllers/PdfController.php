@@ -20,6 +20,14 @@ class PdfController extends Controller
     		abort(404, 'Invalid URL');
         }
 
+    	$mx = isset($_GET['mx']) ? $_GET['mx'] : 0;
+    	$my = isset($_GET['my']) ? $_GET['my'] : 0;
+    
+    	$mt = isset($_GET['mt']) ? $_GET['mt'] : ($my ? $my : 0);
+    	$mr = isset($_GET['mr']) ? $_GET['mr'] : ($mx ? $mx : 0);
+    	$mb = isset($_GET['mb']) ? $_GET['mb'] : ($my ? $my : 0);
+    	$ml = isset($_GET['ml']) ? $_GET['ml'] : ($mx ? $mx : 0);
+
         try {
             //$pdf = Browsershot::html('<h1>Hello world!!</h1>')
             $pdf = Browsershot::url($request->url)
