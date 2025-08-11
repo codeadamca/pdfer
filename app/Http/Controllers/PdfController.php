@@ -11,10 +11,13 @@ class PdfController extends Controller
 
     public function urlToPdf(Request $request)
     {
-
-    	if(!strpos($request->url, 'brevisrefero'))
+    
+    	if(
+        	!strpos($request->url, 'brevisrefero') and 
+        	!strpos($request->url, 'rfpnavigator') and 
+        	!strpos($request->url, 'codeadam') )
         {
-    		abort(404, 'YOUR MESSAGE');
+    		abort(404, 'Invalid URL');
         }
 
         try {
@@ -23,8 +26,8 @@ class PdfController extends Controller
                 ->showBackground()
                 ->noSandbox()
                 ->format('A4')
-            	->setNodeBinary('/home/thomasadam83/.nvm/versions/node/v22.13.1/bin/node')
-    			->setNpmBinary('/home/thomasadam83/.nvm/versions/node/v22.13.1/bin/npm')
+            	// ->setNodeBinary('/home/thomasadam83/.nvm/versions/node/v22.13.1/bin/node')
+    			// ->setNpmBinary('/home/thomasadam83/.nvm/versions/node/v22.13.1/bin/npm')
                 ->pdf();
         } catch (\Exception $e) {
             // Log::error('Browsershot error: ' . $e->getMessage());
@@ -37,8 +40,5 @@ class PdfController extends Controller
             ->header('Content-Disposition', 'inline; filename="Custom Clinical Development Report-'. date("Y-m-d") .'.pdf"');
 
     }
-        
-    
-
 
 }
