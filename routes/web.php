@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\PdfController;
+use App\Http\Controllers\ImageController;
 
 
 Route::get('/', function () {
@@ -10,4 +11,5 @@ Route::get('/', function () {
 });
 
 Route::get('/url-to-pdf', [PdfController::class, 'urlToPdf']);
+Route::get('/url-to-image', [ImageController::class, 'urlToImage']);
 
