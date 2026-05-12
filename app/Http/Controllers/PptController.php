@@ -6,10 +6,10 @@ use Illuminate\Http\Request;
 
 use Spatie\Browsershot\Browsershot;
 
-class PdfController extends Controller
+class PptController extends Controller
 {
 
-    public function urlToPdf(Request $request)
+    public function urlToPpt(Request $request)
     {
     
     	if(
@@ -21,6 +21,15 @@ class PdfController extends Controller
         {
     		abort(404, 'Invalid URL');
         }
+    
+	    $pdfPath = storage_path('app/temp/');
+		$pptPath = storage_path('app/temp/');
+    
+    	$pdfFile = 'temp.pdf';
+    	$pptFile = 'temp.pptx';
+    
+    	// if (file_exists($pdfPath.$pdfFile)) unlink($pdfPath.$pdfFile);
+    	// if (file_exists($pptPath.$pptFile)) unlink($pptPath.$pptFile);
 
     	$mx = isset($_GET['mx']) ? $_GET['mx'] : 0;
     	$my = isset($_GET['my']) ? $_GET['my'] : 0;
@@ -33,23 +42,36 @@ class PdfController extends Controller
     
         try {
             //$pdf = Browsershot::html('<h1>Hello world!!</h1>')
-            $pdf = Browsershot::url($request->url)
+            Browsershot::url($request->url)
             	->margins($mt, $mr, $mb, $ml)
                 ->showBackground()
                 ->noSandbox()
                 ->format('A4')
             	// ->setNodeBinary('/home/thomasadam83/.nvm/versions/node/v22.13.1/bin/node')
     			// ->setNpmBinary('/home/thomasadam83/.nvm/versions/node/v22.13.1/bin/npm')
-                ->pdf();
+                ->save($pdfPath.$pdfFile);
+                // ->pdf();
+        
+       		$cmd = 'soffice --headless --infilter="impress_pdf_import" '
+     			. '--convert-to pptx --outdir '
+     			. escapeshellarg($pptPath) . ' '
+     			. escapeshellarg($pdfPath) . $pdfFile;
+        
+            exec($cmd, $output, $returnVar);
+        	
         } catch (\Exception $e) {
             // Log::error('Browsershot error: ' . $e->getMessage());
             // Log::error($e->getTraceAsString()); // Full stack trace
             throw $e; // Re-throw to see the error in the browser
         }
 
+    	return response()->download($pptPath.$pptFile);
+    
+    	/*
         return response($pdf, 200)
             ->header('Content-Type', 'application/pdf')
             ->header('Content-Disposition', 'inline; filename="Custom Clinical Development Report-'. date("Y-m-d") .'.pdf"');
+        */
 
     }
         

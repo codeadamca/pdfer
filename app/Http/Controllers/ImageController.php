@@ -15,6 +15,8 @@ class ImageController extends Controller
     	if(
         	!strpos($request->url, 'brevisrefero') and 
         	!strpos($request->url, 'rfpnavigator') and 
+        	!strpos($request->url, 'biobudgetchamp') and 
+        	!strpos($request->url, 'brickmmo') and 
         	!strpos($request->url, 'codeadam') )
         {
     		abort(404, 'Invalid URL');
