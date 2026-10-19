@@ -175,7 +175,11 @@ This tool uses a basic Laravel app with Browsershot and Puppeteer to generate PD
 
     Remove binary references from the PdfController.
 
-    Change ownership to Google user: thomasadam83
+    Change ownership to Google user:
+
+    ```
+    sudo chown -R username:username /path/to/directory
+    ```
     
     Rename folder to pffer.codeadam.ca
     Point virtual servers to public folder
