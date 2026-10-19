@@ -150,13 +150,24 @@ This tool uses a basic Laravel app with Browsershot and Puppeteer to generate PD
 
     And open port 10000 in the VPC Network GCP console.
 
+        1. Go to VPC network → Firewall.
+        2. Click Create firewall rule.
+        3. Configure:
+            - Name: allow-port-10000
+            - Network: Your VM's VPC network
+            - Direction: Ingress
+            - Action: Allow
+            - Targets: Specified target tags (if you use network tags), otherwise all instances in the network
+            - Source IPv4 ranges: Your IP address with /32 for restricted access, or 0.0.0.0/0 for public access
+            - Protocols and ports: Select TCP and enter 10000
+
     Reboot the server:
 
     ```
     sudo reboot
     ```
 
-13. Clone the PDFer repo:
+14. Clone the PDFer repo:
 
     ```
     sudo git clone https://github.com/codeadamca/pdfer
