@@ -41,7 +41,11 @@ This tool uses a basic Laravel app with Browsershot and Puppeteer to generate PD
 
     Setup a new FileZilla SFTP connection. Add the IP address, username, and privat key file. Add the new user from the new SSH key to the `www-data` user group. Change any contents of the `/var/www/ folder to have user write permissions using `0775`.
 
-6. Install and configure MySQL:
+   ```
+   sudo usermod -aG www-data username
+   ```
+
+7. Install and configure MySQL:
 
     ```
     sudo apt-get install mysql-server
@@ -57,7 +61,7 @@ This tool uses a basic Laravel app with Browsershot and Puppeteer to generate PD
     exit
     ```
     
-7. Insall PHP:
+8. Insall PHP:
 
     ```
     sudo apt update
@@ -73,7 +77,7 @@ This tool uses a basic Laravel app with Browsershot and Puppeteer to generate PD
     sudo apt-get install -y php8.3-mbstring php8.3-curl php8.3-xml php8.3-bcmath
     ```
     
-8. Install [Composer](https://getcomposer.org/):
+9. Install [Composer](https://getcomposer.org/):
 
     ```
     curl -sS https://getcomposer.org/installer -o /tmp/composer-setup.php
@@ -86,7 +90,7 @@ This tool uses a basic Laravel app with Browsershot and Puppeteer to generate PD
     composer --version
     ```
     
-9. Install [GIT](https://git-scm.com/):
+10. Install [GIT](https://git-scm.com/):
 
     ```
     sudo apt install git-all
@@ -99,7 +103,7 @@ This tool uses a basic Laravel app with Browsershot and Puppeteer to generate PD
     git --version
     ```
 
-10. Change the server password:  
+11. Change the server password:  
     
     ```
     sudo passwd
@@ -113,7 +117,7 @@ This tool uses a basic Laravel app with Browsershot and Puppeteer to generate PD
     sudo reboot
     ```
 
-11. Install [Webmin](https://webmin.com/):
+12. Install [Webmin](https://webmin.com/):
 
     ```
     curl -fsSL https://download.webmin.com/jcameron-key.asc | sudo gpg --dearmor -o /usr/share/keyrings/webmin.gpg
