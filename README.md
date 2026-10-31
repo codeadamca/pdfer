@@ -272,7 +272,9 @@ This tool uses a basic Laravel app with Browsershot and Puppeteer to generate PD
     ```
     nvm install --lts
 
-    cd /var/www/pdfer.codeadam.ca  
+    cd /var/www/pdfer.codeadam.ca
+    sudo apt update
+    sudo apt install -y libatomic1
     npm i
     npm audit fix
     ```
