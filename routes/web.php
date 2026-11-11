@@ -13,7 +13,7 @@ Route::get('/', function () {
 });
 
 Route::get('/url-to-pdf', [PdfController::class, 'urlToPdf']);
-Route::get('/url-to-ppt', [PptController::class, 'urlToPdf']);
+Route::get('/url-to-ppt', [PptController::class, 'urlToPpt']);
 Route::get('/url-to-image', [ImageController::class, 'urlToImage']);
 Route::get('/url-to-html', [HtmlController::class, 'urlToHtml']);
 
